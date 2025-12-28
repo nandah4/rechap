@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "850749798462",
+    "project_id": "rechap-1b572",
+    "storage_bucket": "rechap-1b572.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850749798462:android:ab6ffeca8acfe7eae0396f",
+        "android_client_info": {
+          "package_name": "com.example.rechap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBHqaUBIrjVSsGx111T4sF0IgnJOfebVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
