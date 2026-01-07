@@ -43,7 +43,7 @@ class OnboardScreen extends StatelessWidget {
               width: double.infinity,
               child: ButtonPrimaryShared(
                 text: "Get Started",
-                onPressed: () => context.go("/auth/login"),
+                onPressed: () => context.goNamed("login-screen"),
               ),
             ),
             const SizedBox(height: kSpacing26),
