@@ -37,7 +37,6 @@ class ChatListScreen extends ConsumerWidget {
           mainAxisAlignment: .center,
           children: [
             Text("Chat List Screen"),
-            // Text("User Id = ${authViewModel.uid}"),
             ElevatedButton(
               onPressed: () {
                 context.push('/auth/login');

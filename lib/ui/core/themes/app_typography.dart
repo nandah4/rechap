@@ -43,3 +43,19 @@ TextStyle kDescriptionSnackbarNotification(BuildContext context) => TextStyle(
   fontSize: kFontSize18,
   fontWeight: FontWeight.w500,
 );
+
+// ----- PROFILE SCREEN -----
+
+/// Label for each column
+TextStyle kLabelProfile(BuildContext context) => TextStyle(
+  color: Theme.of(context).colorScheme.onSurface,
+  fontSize: kFontSize18,
+  fontWeight: FontWeight.w500,
+);
+
+/// Label
+TextStyle kFieldProfile(BuildContext context) => TextStyle(
+  color: Theme.of(context).colorScheme.onSurface,
+  fontSize: kFontSize16,
+  fontWeight: FontWeight.w500,
+);

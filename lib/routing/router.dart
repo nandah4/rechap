@@ -5,7 +5,7 @@ import 'package:rechap/ui/auth/widgets/login_screen.dart';
 import 'package:rechap/ui/auth/widgets/verification_otp_screen.dart';
 import 'package:rechap/ui/chat-list/widgets/chat_list_screen.dart';
 import 'package:rechap/ui/onboard/widget/onboard_screen.dart';
-import 'package:rechap/ui/profile/widgets/profile_screen.dart';
+import 'package:rechap/ui/profile/profile_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final _publicRoutes = <String>['/', '/auth/login', '/auth/otp'];

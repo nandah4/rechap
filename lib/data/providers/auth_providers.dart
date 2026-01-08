@@ -15,6 +15,6 @@ final isLoadingProvider = Provider<bool>((ref) {
   return state.status == LoginState.loading;
 });
 
-// final authMetaDataState = Provider(
-//   (ref) => ref.watch(firebaseAuthProvider).currentUser,
-// );
+final authMetaDataState = Provider<String?>(
+  (ref) => ref.watch(firebaseAuthProvider).currentUser?.phoneNumber ,
+);

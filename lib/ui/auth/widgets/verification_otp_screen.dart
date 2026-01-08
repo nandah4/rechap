@@ -19,7 +19,6 @@ class VerificationOTPScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(loginViewModelProvider);
     final notifier = ref.read(loginViewModelProvider.notifier);
 
     ref.listen(loginViewModelProvider, (previous, current) {
