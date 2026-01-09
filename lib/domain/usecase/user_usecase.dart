@@ -14,4 +14,12 @@ class UserUsecase {
   Future<Result<UserEntity>> checkPhoneNumberAvailability(String phoneNumber) {
     return repositoryImpl.getPhoneNumberAvailable(phoneNumber);
   }
+
+  Future<UserEntity> getCurrentUser() async {
+    final result = await repositoryImpl.getCurrentUser();
+
+    if (result.data == null) throw Exception(result.message);
+
+    return result.data!;
+  }
 }

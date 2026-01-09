@@ -50,7 +50,7 @@ class LoginViewModel extends Notifier<LoginStateData> {
     // Combine phone number and phone country code id
     final fullPhoneNumber = _phoneValidationService.formatPhoneNumberCountry(
       state.countryPhoneId.phoneCode,
-      state.numberPhone,
+      phoneNumber, // Use the parameter, not state.numberPhone!
     );
 
     try {

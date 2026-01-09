@@ -8,9 +8,13 @@ import 'package:rechap/domain/usecase/user_usecase.dart';
 // Dependecy Injection for User Flows
 
 final userRepositoryProvider = Provider<UserRepository>(
-  (ref) => UserRepositoryImpl(firebaseFirestore: ref.read(firestoreProvider)),
+  (ref) => UserRepositoryImpl(
+    firebaseFirestore: ref.read(firestoreProvider),
+    firebaseAuth: ref.read(firebaseAuthProvider),
+  ),
 );
 
 final userUseCaseProvider = Provider<UserUsecase>(
   (ref) => UserUsecase(repositoryImpl: ref.read(userRepositoryProvider)),
 );
+

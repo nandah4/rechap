@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rechap/ui/profile/widgets/edit_field_modal_bottom.dart';
 
 enum EditFieldType { name, bio }
+
+typedef Validator = String? Function(String value);
 
 class EditModalBottomSingle {
   final String title;
@@ -10,7 +11,7 @@ class EditModalBottomSingle {
   final String? hintText;
   final int? maxLength;
   final TextInputType type;
-  final String? Function(String value) validator;
+  final Validator validator;
 
   EditModalBottomSingle({
     required this.title,

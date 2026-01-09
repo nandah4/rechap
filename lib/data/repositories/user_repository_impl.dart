@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rechap/data/model/user_model.dart';
 import 'package:rechap/domain/common/result.dart';
 import 'package:rechap/domain/entities/user_entity.dart';
@@ -6,8 +7,12 @@ import 'package:rechap/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl extends UserRepository {
   final FirebaseFirestore firebaseFirestore;
+  final FirebaseAuth firebaseAuth;
 
-  UserRepositoryImpl({required this.firebaseFirestore});
+  UserRepositoryImpl({
+    required this.firebaseFirestore,
+    required this.firebaseAuth,
+  });
 
   @override
   Future<Result<void>> createUser(UserEntity data) async {
@@ -27,6 +32,7 @@ class UserRepositoryImpl extends UserRepository {
     }
   }
 
+  // ❌ NEED REFACTOR : Generic Type of Result<T>
   @override
   Future<Result<UserEntity>> getPhoneNumberAvailable(String data) async {
     try {
@@ -45,6 +51,28 @@ class UserRepositoryImpl extends UserRepository {
       return Result.error("Phone number is not available");
     } catch (e) {
       return Result.error("Failed to get user: $e");
+    }
+  }
+
+  @override
+  Future<Result<UserEntity>> getCurrentUser() async {
+    try {
+      final currentUser = firebaseAuth.currentUser;
+      if (currentUser == null) return Result.error("User not logged in!");
+
+      DocumentReference<Map<String, dynamic>> docRef = firebaseFirestore
+          .collection('users')
+          .doc(currentUser.uid);
+
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await docRef.get();
+
+      if (!snapshot.exists) return Result.error("User not found");
+
+      final userModelResult = UserModel.fromJson(snapshot.data()!);
+
+      return Result.success(userModelResult.toEntity());
+    } catch (e) {
+      return Result.error("Failed to get user $e");
     }
   }
 }

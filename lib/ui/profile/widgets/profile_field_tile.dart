@@ -9,13 +9,13 @@ import 'package:icons_plus/icons_plus.dart';
 class ProfileFieldTile extends StatelessWidget {
   final VoidCallback onTap;
   final String? initialValue;
-  final bool isClicked;
+  final bool enables;
   final IconData iconTile;
 
   const ProfileFieldTile({
     super.key,
     required this.onTap,
-    required this.isClicked,
+    required this.enables,
     required this.iconTile,
     this.initialValue,
   });
@@ -23,7 +23,7 @@ class ProfileFieldTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: isClicked ? onTap : () {},
+      onTap: enables ? onTap : null,
       borderRadius: BorderRadius.circular(kRadius16),
       child: Row(
         children: [
@@ -43,7 +43,7 @@ class ProfileFieldTile extends StatelessWidget {
                 children: [
                   Text(initialValue ?? '-', style: kFieldProfile(context)),
 
-                  if (isClicked) ...[
+                  if (enables) ...[
                     const Spacer(),
                     Padding(
                       padding: EdgeInsetsGeometry.symmetric(

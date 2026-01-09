@@ -6,47 +6,34 @@ class UserModel {
   final String phoneNumber;
   final String? username;
   final String? bio;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
 
   UserModel({
     required this.uid,
     required this.phoneNumber,
     this.username,
     this.bio,
-    this.createdAt,
-    this.updatedAt,
   });
 
-  factory UserModel.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-  ) {
-    final data = snapshot.data();
-
-    if (data == null) {
-      throw StateError('Document data is null for ${snapshot.id}');
-    }
+  factory UserModel.fromJson(Map<String, dynamic> snapshot) {
     return UserModel(
-      uid: data['uid'] as String,
-      phoneNumber: data['phone_number'] as String,
-      username: data['username'] as String? ?? '',
-      bio: data['bio'] as String? ?? '',
-      createdAt: (data['created_at'] as Timestamp?)?.toDate(),
-      updatedAt: (data['updated_at'] as Timestamp?)?.toDate(),
+      uid: snapshot['uid'] as String,
+      phoneNumber: snapshot['phone_number'] as String,
+      username: snapshot['username'] as String? ?? '',
+      bio: snapshot['bio'] as String? ?? '',
     );
   }
 
+  // ❌ Need Refactor
   factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(
       uid: entity.uid,
       username: entity.username,
       phoneNumber: entity.phoneNumber,
       bio: entity.bio,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
     );
   }
 
+  // ❌ Need Refactor
   Map<String, dynamic> toFirestore() {
     return {
       'uid': uid,
@@ -56,5 +43,17 @@ class UserModel {
       'created_at': FieldValue.serverTimestamp(),
       'updated_at': FieldValue.serverTimestamp(),
     };
+  }
+}
+
+// RULES : Outer layer must not be referenced by inner layer
+extension UserModelMapper on UserModel {
+  UserEntity toEntity() {
+    return UserEntity(
+      uid: uid,
+      phoneNumber: phoneNumber,
+      bio: bio,
+      username: username,
+    );
   }
 }

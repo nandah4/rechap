@@ -1,6 +1,5 @@
 // Initialize provider for LoginStateData and LoginViewModel
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rechap/data/providers/firebase_providers.dart';
 import 'package:rechap/data/model/auth_state.dart';
 import 'package:rechap/ui/auth/view_models/login_view_model.dart';
 
@@ -15,6 +14,6 @@ final isLoadingProvider = Provider<bool>((ref) {
   return state.status == LoginState.loading;
 });
 
-final authMetaDataState = Provider<String?>(
-  (ref) => ref.watch(firebaseAuthProvider).currentUser?.phoneNumber ,
-);
+// final authMetaDataState = Provider<String?>(
+//   (ref) => ref.watch(firebaseAuthProvider).currentUser?.phoneNumber ,
+// );
