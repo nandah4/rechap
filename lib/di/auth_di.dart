@@ -1,13 +1,19 @@
-import 'package:rechap/data/providers/firebase_providers.dart';
-import 'package:rechap/domain/services/phone_auth_service.dart';
-import 'package:rechap/domain/services/phone_validation_service.dart';
+import 'package:rechap/di/firebase_providers.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rechap/di/profile_di.dart';
+import 'package:rechap/features/login/data/repositories_impl/auth_repository_impl.dart';
+import 'package:rechap/features/login/domain/repositories/auth_repository.dart';
+import 'package:rechap/features/login/domain/usecases/auth_usecase.dart';
 
-final phoneValidationServiceProvider = Provider<PhoneValidationService>(
-  (red) => PhoneValidationService(),
+final authRepositoryProvider = Provider<AuthRepository>(
+  (ref) => AuthRepositoryImpl(firebaseAuth: ref.read(firebaseAuthProvider)),
 );
 
-final phoneAuthServiceProvider = Provider<PhoneAuthService>(
-  (ref) => PhoneAuthService(ref.read(firebaseAuthProvider)),
+final authUseCaseProvider = Provider<AuthUsecase>(
+  (ref) => AuthUsecase(
+    authRepository: ref.read(authRepositoryProvider),
+    userRepository: ref.read(userRepositoryProvider),
+    phoneIndexRepository: ref.read(phoneIdxRepositoryProvider),
+  ),
 );

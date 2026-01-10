@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rechap/routing/router.dart';
+import 'package:rechap/core/routing/router.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:rechap/ui/core/themes/app_theme.dart';
+import 'package:rechap/core/themes/app_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
