@@ -32,7 +32,26 @@ class UserRepositoryImpl extends UserRepository {
     }
   }
 
-  // ❌ NEED REFACTOR : Generic Type of Result<T>
+  @override
+  Future<Result<void>> updateUser(Map<String, dynamic> field) async {
+    try {
+      final currentUser = firebaseAuth.currentUser?.uid;
+
+      if (currentUser == null) return Result.error("User not found");
+
+      final profileRef = firebaseFirestore.collection('users').doc(currentUser);
+
+      await profileRef.update({
+        ...field,
+        'updated_at': FieldValue.serverTimestamp(),
+      });
+
+      return Result.success(null);
+    } catch (e) {
+      return Result.error(e.toString());
+    }
+  }
+
   @override
   Future<Result<UserEntity>> getPhoneNumberAvailable(String data) async {
     try {

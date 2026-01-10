@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:rechap/data/providers/firebase_providers.dart';
 import 'package:rechap/routing/go_router_listenable.dart';
-import 'package:rechap/ui/auth/widgets/login_screen.dart';
-import 'package:rechap/ui/auth/widgets/verification_otp_screen.dart';
+import 'package:rechap/ui/auth/login_screen.dart';
+import 'package:rechap/ui/auth/verification_otp_screen.dart';
 import 'package:rechap/ui/chat-list/widgets/chat_list_screen.dart';
-import 'package:rechap/ui/onboard/widget/onboard_screen.dart';
+import 'package:rechap/ui/onboard/onboard_screen.dart';
 import 'package:rechap/ui/profile/profile_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

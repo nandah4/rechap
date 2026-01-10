@@ -3,7 +3,7 @@ import 'package:rechap/ui/core/themes/app_dimens.dart';
 import 'package:rechap/ui/core/themes/app_palette.dart';
 import 'package:rechap/ui/core/themes/app_typography.dart';
 import 'package:rechap/ui/core/ui/button_primary_shared.dart';
-import 'package:rechap/ui/profile/form/edit_field_type.dart';
+import 'package:rechap/ui/profile/models/edit_field_config.dart';
 
 class EditFieldModalBottom extends StatefulWidget {
   final EditFieldType fieldType;
@@ -16,15 +16,14 @@ class EditFieldModalBottom extends StatefulWidget {
   });
 
   @override
-  createState() => _EditFieldModalBottom();
+  createState() => _EditFieldModalBottomState();
 }
 
-class _EditFieldModalBottom extends State<EditFieldModalBottom> {
+class _EditFieldModalBottomState extends State<EditFieldModalBottom> {
   late final TextEditingController _controller;
   String? _errorField;
 
-  EditModalBottomSingle get config =>
-      editModalBottomSingleConfig[widget.fieldType]!;
+  EditFieldConfig get config => editFieldConfigs[widget.fieldType]!;
 
   @override
   void initState() {
@@ -39,22 +38,22 @@ class _EditFieldModalBottom extends State<EditFieldModalBottom> {
   }
 
   void _submit(String value) {
-    final isValueValid = config.validator(value);
+    final validationError = config.validator(value);
 
-    if (isValueValid != null) {
+    if (validationError != null) {
       setState(() {
-        _errorField = isValueValid;
+        _errorField = validationError;
       });
       return;
     }
 
-    Navigator.pop(context, value);
+    Navigator.pop(context, {widget.fieldType: value});
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: .only(
+      padding: EdgeInsets.only(
         top: kSpacing20,
         left: kSpacing16,
         right: kSpacing16,
@@ -67,11 +66,11 @@ class _EditFieldModalBottom extends State<EditFieldModalBottom> {
             Text(
               config.title,
               style: kLabelProfile(context),
-              textAlign: .center,
+              textAlign: TextAlign.center,
             ),
             Expanded(
               child: Column(
-                crossAxisAlignment: .start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     config.label,
@@ -82,6 +81,8 @@ class _EditFieldModalBottom extends State<EditFieldModalBottom> {
                   TextField(
                     controller: _controller,
                     autofocus: true,
+                    maxLength: config.maxLength,
+                    keyboardType: config.type,
                     decoration: InputDecoration(
                       errorText: _errorField,
                       errorStyle: kDescription(
