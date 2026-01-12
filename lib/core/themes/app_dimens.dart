@@ -4,7 +4,9 @@ const double kFontSize14 = 14;
 const double kFontSize16 = 16;
 const double kFontSize18 = 18;
 const double kFontSize20 = 20;
+const double kFontSize22 = 22;
 const double kFontSize24 = 24;
+const double kFontSize26 = 26;
 const double kFontSize28 = 28;
 const double kFontSize32 = 32;
 
