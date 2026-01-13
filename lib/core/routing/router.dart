@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rechap/core/routing/main_scaffold.dart';
 import 'package:rechap/di/firebase_providers.dart';
 import 'package:rechap/core/routing/go_router_listenable.dart';
+import 'package:rechap/features/chat-list/presentation/screens/contact_list.dart';
 import 'package:rechap/features/chat/presentation/screens/chat_screen.dart';
 import 'package:rechap/features/login/presentation/screens/login_screen.dart';
 import 'package:rechap/features/login/presentation/screens/verification_otp_screen.dart';
@@ -84,6 +85,11 @@ final router = Provider<GoRouter>((ref) {
         path: '/auth/otp',
         name: 'otp-screen',
         builder: (context, state) => VerificationOTPScreen(),
+      ),
+      GoRoute(
+        path: '/contact-list',
+        name: 'contact-list-screen',
+        builder: (context, state) => ContactList(),
       ),
     ],
   );

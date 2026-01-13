@@ -43,6 +43,12 @@ class ChatListScreen extends ConsumerWidget {
               },
               child: Text("Going to Profile"),
             ),
+            ElevatedButton(
+              onPressed: () {
+                context.push('/contact-list');
+              },
+              child: Text("Going to Contact List"),
+            ),
           ],
         ),
       ),

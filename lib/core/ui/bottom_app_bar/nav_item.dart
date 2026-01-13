@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:rechap/core/themes/app_dimens.dart';
 import 'package:rechap/core/themes/app_palette.dart';
+import 'package:rechap/core/themes/app_typography.dart';
 
 class NavItem extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
   final bool isActive;
   final bool isCenter;
+  final String? label;
 
   const NavItem({
     super.key,
-
     required this.icon,
     required this.onTap,
+    this.label,
     this.isActive = false,
     this.isCenter = false,
   });
@@ -40,7 +42,36 @@ class NavItem extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Icon(icon, color: _fontColor(context), size: kFontSize24)],
+          children: [
+            if (isCenter) ...[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(icon, size: kFontSize20, color: _fontColor(context)),
+                  const SizedBox(width: kSpacing8),
+                  Text(
+                    label ?? 'New Chat',
+                    style: kDescription(context).copyWith(
+                      color: _fontColor(context),
+                      fontSize: kFontSize16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ] else ...[
+              Icon(icon, color: _fontColor(context), size: kFontSize24),
+              if (label != null) ...[
+                const SizedBox(height: kSpacing4),
+                Text(
+                  label!,
+                  style: kDescription(
+                    context,
+                  ).copyWith(color: _fontColor(context), fontSize: kFontSize12),
+                ),
+              ],
+            ],
+          ],
         ),
       ),
     );

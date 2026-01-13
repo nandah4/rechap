@@ -13,7 +13,9 @@ const double kFontSize32 = 32;
 // Border Radius
 const double kRadius0 = 0;
 const double kRadius8 = 8;
+const double kRadius12 = 12;
 const double kRadius16 = 16;
+const double kRadius20 = 20;
 const double kRadius24 = 24;
 const double kRadius32 = 32;
 
