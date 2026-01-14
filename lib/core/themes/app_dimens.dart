@@ -27,6 +27,7 @@ const double kButtonHeight64 = 64;
 // Assets Size
 const double kLottieSize = 350;
 const double kProfilePhotoSize = 130;
+const double kImageEmpty = 200;
 
 // Spacing
 const double kSpacing2 = 2;

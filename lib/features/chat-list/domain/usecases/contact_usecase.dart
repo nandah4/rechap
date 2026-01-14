@@ -26,7 +26,14 @@ class ContactUsecase {
 
       final contacts = await _contactRepository.fetchContacts();
       final List<ContactEntity> contactsEntity = contacts
-          .map((e) => ContactEntity(id: e.id, displayName: e.displayName))
+          .map(
+            (e) => ContactEntity(
+              id: e.id,
+              displayName: e.displayName,
+              photo: e.photo,
+              phoneNumber: e.phoneNumber,
+            ),
+          )
           .toList();
 
       return Result.success(contactsEntity);

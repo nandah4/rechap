@@ -6,9 +6,8 @@ import 'package:rechap/features/profile/domain/entities/user_entity.dart';
 import 'package:rechap/features/profile/presentation/widgets/field_bottom_sheet_widget/edit_field_config.dart';
 
 /// Provider for ProfileViewModel
-final profileViewModelProvider = AsyncNotifierProvider<ProfileViewModel, UserEntity>(
-  ProfileViewModel.new,
-);
+final profileViewModelProvider =
+    AsyncNotifierProvider<ProfileViewModel, UserEntity>(ProfileViewModel.new);
 
 /// ViewModel for Profile Screen
 ///
@@ -46,6 +45,7 @@ class ProfileViewModel extends AsyncNotifier<UserEntity> {
   }
 
   Future<void> signOut() async {
-    ref.read(userUseCaseProvider).signOut();
+    await ref.read(userUseCaseProvider).signOut();
+    ref.invalidateSelf();
   }
 }

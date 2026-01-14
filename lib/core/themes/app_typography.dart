@@ -37,6 +37,18 @@ TextStyle kDescription(BuildContext context) => TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+TextStyle kTitleEmpty(BuildContext context) => TextStyle(
+  color: Theme.of(context).colorScheme.onSurface,
+  fontSize: kFontSize18,
+  fontWeight: FontWeight.w500,
+);
+
+TextStyle kSubtitleEmpty(BuildContext context) => TextStyle(
+  color: Theme.of(context).colorScheme.onSurfaceVariant,
+  fontSize: kFontSize16,
+  fontWeight: FontWeight.w400,
+);
+
 /// Error and Succes Snackbar Style
 TextStyle kDescriptionSnackbarNotification(BuildContext context) => TextStyle(
   color: AppPallete.white,
@@ -57,5 +69,19 @@ TextStyle kLabelProfile(BuildContext context) => TextStyle(
 TextStyle kFieldProfile(BuildContext context) => TextStyle(
   color: Theme.of(context).colorScheme.onSurface,
   fontSize: kFontSize16,
+  fontWeight: FontWeight.w500,
+);
+
+/// ----- CHAT SCREEN -----
+
+TextStyle kMessage(BuildContext context) => TextStyle(
+  color: Theme.of(context).colorScheme.onSurface,
+  fontSize: kFontSize16,
+  fontWeight: FontWeight.w400,
+);
+
+TextStyle kTimestamp(BuildContext context) => TextStyle(
+  color: Theme.of(context).colorScheme.onSurface,
+  fontSize: kFontSize14,
   fontWeight: FontWeight.w500,
 );
