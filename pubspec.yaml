@@ -72,6 +72,7 @@ flutter:
     - assets/images/cat-main-icon.json
     - assets/images/profile-photo.jpeg
     - assets/images/empty-notif.json
+    - assets/images/kittc-chat-error.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -17,3 +17,11 @@ final authUseCaseProvider = Provider<AuthUsecase>(
     phoneIndexRepository: ref.read(phoneIdxRepositoryProvider),
   ),
 );
+
+/// Reactive provider that updates when auth state changes (login/logout)
+final currentUserIdProvider = StreamProvider.autoDispose<String?>((ref) {
+  return ref
+      .watch(firebaseAuthProvider)
+      .authStateChanges()
+      .map((user) => user?.uid);
+});

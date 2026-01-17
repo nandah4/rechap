@@ -37,6 +37,13 @@ TextStyle kDescription(BuildContext context) => TextStyle(
   fontWeight: FontWeight.w400,
 );
 
+/// Text style for button without bg
+TextStyle kTextButton(BuildContext context) => TextStyle(
+  color: Theme.of(context).colorScheme.onSurface,
+  fontSize: kFontSize16,
+  fontWeight: FontWeight.w500,
+);
+
 TextStyle kTitleEmpty(BuildContext context) => TextStyle(
   color: Theme.of(context).colorScheme.onSurface,
   fontSize: kFontSize18,
@@ -74,6 +81,12 @@ TextStyle kFieldProfile(BuildContext context) => TextStyle(
 
 /// ----- CHAT SCREEN -----
 
+TextStyle kTitleChat(BuildContext context) => TextStyle(
+  color: Theme.of(context).colorScheme.onSurface,
+  fontSize: kFontSize18,
+  fontWeight: FontWeight.w600,
+);
+
 TextStyle kMessage(BuildContext context) => TextStyle(
   color: Theme.of(context).colorScheme.onSurface,
   fontSize: kFontSize16,
@@ -82,6 +95,6 @@ TextStyle kMessage(BuildContext context) => TextStyle(
 
 TextStyle kTimestamp(BuildContext context) => TextStyle(
   color: Theme.of(context).colorScheme.onSurface,
-  fontSize: kFontSize14,
+  fontSize: kFontSize12,
   fontWeight: FontWeight.w500,
 );

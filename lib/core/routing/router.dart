@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rechap/core/routing/main_scaffold.dart';
+import 'package:rechap/core/themes/app_palette.dart';
 import 'package:rechap/di/firebase_providers.dart';
+import 'package:rechap/di/chat_di.dart';
 import 'package:rechap/core/routing/go_router_listenable.dart';
-import 'package:rechap/features/chat-list/presentation/screens/contact_list_screen.dart';
+import 'package:rechap/features/contacts/presentation/screens/contact_list_screen.dart';
 import 'package:rechap/features/chat/presentation/screens/chat_screen.dart';
 import 'package:rechap/features/login/presentation/screens/login_screen.dart';
 import 'package:rechap/features/login/presentation/screens/verification_otp_screen.dart';
@@ -54,10 +56,14 @@ final router = Provider<GoRouter>((ref) {
             builder: (context, state) => ChatListScreen(),
             routes: <GoRoute>[
               GoRoute(
-                path: 'chat',
+                path: 'chat/:conversationId',
                 name: "chat",
                 parentNavigatorKey: _rootNavigatorKey,
-                builder: (context, state) => ChatScreen(),
+                builder: (context, state) {
+                  final conversationId =
+                      state.pathParameters['conversationId']!;
+                  return ChatScreen(conversationId: conversationId);
+                },
               ),
             ],
           ),
@@ -89,7 +95,33 @@ final router = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/contact-list',
         name: 'contact-list-screen',
-        builder: (context, state) => ContactList(),
+        builder: (context, state) => Consumer(
+          builder: (context, ref, child) => ContactListScreen(
+            onContactSelected: (contact) async {
+              final phoneNumber = contact.primaryPhoneNumber;
+              if (phoneNumber == null || phoneNumber.isEmpty) return;
+
+              final usecase = ref.read(createRoomChatUsecaseProvider);
+              final result = await usecase(phoneNumber);
+
+              if (result.success && result.data != null) {
+                if (context.mounted) {
+                  context.push('/chat-list/chat/${result.data!.id}');
+                }
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppPallete.error,
+                      content: Text(result.message ?? 'Failed to create chat'),
+                    ),
+                  );
+                }
+              }
+            },
+          ),
+        ),
       ),
     ],
   );

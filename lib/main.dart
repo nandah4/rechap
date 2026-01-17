@@ -14,9 +14,14 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
 
-  // Ideal time to initialize for testing with Firebase Emulator
-  await FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
-  FirebaseFirestore.instance.useFirestoreEmulator('10.0.2.2', 8080);
+  // Ideal time to initialize for testing with Firebase Emulator240259
+  // await FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
+  // FirebaseFirestore.instance.useFirestoreEmulator('10.0.2.2', 8080);
+
+  // FirebaseFirestore.instance.settings = const Settings(
+  //   persistenceEnabled: true,
+  //   sslEnabled: false,
+  // );
 
   runApp(ProviderScope(child: RechapApp()));
 }

@@ -1,17 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rechap/features/chat-list/data/repository_impl/contact_repository_impl.dart';
-import 'package:rechap/features/chat-list/data/repository_impl/mock_contact_repository_impl.dart';
-import 'package:rechap/features/chat-list/domain/repositories/contact_repository.dart';
-import 'package:rechap/features/chat-list/domain/usecases/contact_usecase.dart';
+import 'package:rechap/features/contacts/data/repositories_impl/contact_repository_impl.dart';
+import 'package:rechap/features/contacts/data/repositories_impl/mock_contact_repository_impl.dart';
+import 'package:rechap/features/contacts/domain/repositories/contact_repository.dart';
+import 'package:rechap/features/contacts/domain/usecases/fetch_contacts_usecase.dart';
 
-final contactRepository = Provider<ContactRepository>(
-  (ref) => ContactRepositoryImpl(),
+/// For testing on emulator without real contacts
+const bool useMockContacts = true;
+
+final contactRepositoryProvider = Provider<ContactRepository>(
+  (ref) =>
+      useMockContacts ? MockContactRepositoryImpl() : ContactRepositoryImpl(),
 );
 
-final mockContactRepository = Provider<ContactRepository>(
-  (ref) => MockContactRepositoryImpl(),
-);
-
-final contactUsecase = Provider<ContactUsecase>(
-  (ref) => ContactUsecase(contactRepository: ref.read(mockContactRepository)),
+final fetchContactsUsecaseProvider = Provider<FetchContactsUsecase>(
+  (ref) => FetchContactsUsecase(
+    contactRepository: ref.read(contactRepositoryProvider),
+  ),
 );

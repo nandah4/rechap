@@ -12,9 +12,7 @@ typedef CodeAutoRetrievalTimeout = void Function(String verificationId);
 class AuthRepositoryImpl extends AuthRepository {
   final FirebaseAuth firebaseAuth;
 
-  AuthRepositoryImpl({
-    required this.firebaseAuth,
-  });
+  AuthRepositoryImpl({required this.firebaseAuth});
 
   /// Through this method, otp code will be sent
   @override
@@ -57,7 +55,17 @@ class AuthRepositoryImpl extends AuthRepository {
     }
   }
 
-  @override 
+  @override
+  Future<Result<User?>> getCurrentUser() async {
+    try {
+      final user = firebaseAuth.currentUser;
+      return Result.success(user);
+    } catch (e) {
+      return Result.error("Unknown Exception: ${e.toString()}");
+    }
+  }
+
+  @override
   PhoneAuthCredential createCredentials(String verificationId, String smsCode) {
     return PhoneAuthProvider.credential(
       verificationId: verificationId,

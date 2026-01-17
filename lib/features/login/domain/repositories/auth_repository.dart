@@ -20,6 +20,8 @@ abstract class AuthRepository {
     PhoneAuthCredential credential,
   );
 
+  Future<Result<User?>> getCurrentUser();
+
   PhoneAuthCredential createCredentials(String verificationId, String smsCode);
 
   Future<Result<void>> signOut();

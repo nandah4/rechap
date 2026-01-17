@@ -30,6 +30,7 @@ const double kProfilePhotoSize = 130;
 const double kImageEmpty = 200;
 
 // Spacing
+const double kSpacing1 = 2;
 const double kSpacing2 = 2;
 const double kSpacing4 = 4;
 const double kSpacing8 = 8;

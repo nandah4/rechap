@@ -4,8 +4,10 @@ import 'package:rechap/features/chat-list/domain/entities/room_chat_entity.dart'
 extension RoomChatModelToEntity on RoomChatModel {
   RoomChatEntity toEntity() {
     return RoomChatEntity(
+      id: id,
       participantsId: participantsId,
       participantMap: participantMap,
+      participantNames: participantNames,
       unreadCount: unreadCount,
       lastMessage: lastMessage,
       lastMessageAt: lastMessageAt,
@@ -18,8 +20,10 @@ extension RoomChatModelToEntity on RoomChatModel {
 extension RoomChatEntityToModel on RoomChatEntity {
   RoomChatModel toModel() {
     return RoomChatModel(
+      id: id!,
       participantsId: participantsId!,
       participantMap: participantMap!,
+      participantNames: participantNames ?? {},
       unreadCount: unreadCount!,
       lastMessage: lastMessage,
       lastMessageAt: lastMessageAt,

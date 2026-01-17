@@ -5,7 +5,7 @@ import 'package:rechap/core/themes/app_palette.dart';
 import 'package:rechap/core/themes/app_typography.dart';
 
 class ChatInput extends StatefulWidget {
-  final VoidCallback onTap;
+  final ValueChanged<String> onTap;
 
   const ChatInput({super.key, required this.onTap});
 
@@ -27,6 +27,13 @@ class _ChatInput extends State<ChatInput> {
     super.dispose();
   }
 
+  void submit(String message) {
+    if (message.isEmpty) return;
+
+    widget.onTap(message);
+    _textEditingController.text = '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +51,9 @@ class _ChatInput extends State<ChatInput> {
         children: [
           Expanded(
             child: TextField(
+              controller: _textEditingController,
               style: kDescription(context),
+
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(kRadius16),
@@ -64,16 +73,19 @@ class _ChatInput extends State<ChatInput> {
             ),
           ),
           const SizedBox(width: kSpacing16),
-          Container(
-            padding: EdgeInsets.all(kSpacing16),
-            decoration: BoxDecoration(
-              color: AppPallete.blackPrimary,
-              borderRadius: BorderRadius.all(Radius.circular(kSpacing30)),
-            ),
-            child: Icon(
-              FontAwesome.paper_plane,
-              color: AppPallete.backgroundGrey,
-              size: kFontSize22,
+          GestureDetector(
+            onTap: () => submit(_textEditingController.text.trim()),
+            child: Container(
+              padding: EdgeInsets.all(kSpacing16),
+              decoration: BoxDecoration(
+                color: AppPallete.blackPrimary,
+                borderRadius: BorderRadius.all(Radius.circular(kSpacing30)),
+              ),
+              child: Icon(
+                FontAwesome.paper_plane,
+                color: AppPallete.backgroundGrey,
+                size: kFontSize20,
+              ),
             ),
           ),
         ],
