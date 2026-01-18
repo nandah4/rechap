@@ -15,6 +15,8 @@ class ChatInput extends StatefulWidget {
 
 class _ChatInput extends State<ChatInput> {
   late final TextEditingController _textEditingController;
+  bool _isEmpty = true;
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +34,22 @@ class _ChatInput extends State<ChatInput> {
 
     widget.onTap(message);
     _textEditingController.text = '';
+
+    setState(() {
+      _isEmpty = true;
+    });
+  }
+
+  void _checkEmpty(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        _isEmpty = true;
+      });
+    } else {
+      setState(() {
+        _isEmpty = false;
+      });
+    }
   }
 
   @override
@@ -44,7 +62,6 @@ class _ChatInput extends State<ChatInput> {
       padding: EdgeInsets.only(
         left: kSpacing16,
         right: kSpacing16,
-        bottom: kSpacing10,
         top: kSpacing12,
       ),
       child: Row(
@@ -53,7 +70,7 @@ class _ChatInput extends State<ChatInput> {
             child: TextField(
               controller: _textEditingController,
               style: kDescription(context),
-
+              onChanged: (value) => _checkEmpty(value),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(kRadius16),
@@ -74,11 +91,12 @@ class _ChatInput extends State<ChatInput> {
           ),
           const SizedBox(width: kSpacing16),
           GestureDetector(
-            onTap: () => submit(_textEditingController.text.trim()),
+            onTap: () =>
+                _isEmpty ? null : submit(_textEditingController.text.trim()),
             child: Container(
               padding: EdgeInsets.all(kSpacing16),
               decoration: BoxDecoration(
-                color: AppPallete.blackPrimary,
+                color: _isEmpty ? AppPallete.greyText : AppPallete.blackPrimary,
                 borderRadius: BorderRadius.all(Radius.circular(kSpacing30)),
               ),
               child: Icon(

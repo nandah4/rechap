@@ -8,7 +8,6 @@ extension MessageModelToEntity on MessageModel {
       senderId: senderId,
       text: text,
       type: type,
-      readBy: readBy,
       createdAt: createdAt,
     );
   }
@@ -20,7 +19,6 @@ extension MessageEntityToModel on MessageEntity {
       senderId: senderId,
       text: text,
       type: type,
-      readBy: readBy,
       createdAt: createdAt,
     );
   }

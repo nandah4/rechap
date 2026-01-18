@@ -21,21 +21,21 @@ class SendMessageUseCase {
     String conversationId,
     String message,
   ) async {
+    if (conversationId.isEmpty || message.isEmpty) {
+      return Result.error('Message is empty');
+    }
+
     final currentUser = await _authRepository.getCurrentUser();
 
     if (currentUser.data == null) {
       return Result.error('User not found');
     }
 
-    print("BERHASILLLL GET CURRENT USER");
-
     // get user id based on current user
     final userId = currentUser.data!.uid;
     final roomChat = await _chatRepository.getRoomChatById(conversationId);
 
     if (!roomChat.success) return Result.error(roomChat.message);
-
-    print("BERHASILLLL GET ROOM CHAT");
 
     // get receiver id from room chat
     final receiverId = roomChat.data!.participantsId!.firstWhere(
@@ -48,10 +48,7 @@ class SendMessageUseCase {
       text: message,
       createdAt: DateTime.now(),
       type: 'text',
-      readBy: [userId],
     );
-
-    print("BERHASILLLL BUAT ENTITY $receiverId");
 
     // send message
     final result = await _messageRepository.sendMessage(
@@ -60,11 +57,7 @@ class SendMessageUseCase {
       receiverId: receiverId,
     );
 
-    print("BERHASILLLL CALL MESSAGE REPOSITORY ${result.message}");
-
     if (!result.success) return Result.error(result.message);
-
-    print("BERHASILLLL BUAT MESSAGE");
 
     return Result.success(null);
   }

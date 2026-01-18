@@ -22,11 +22,8 @@ class MessageRepositoryImpl implements MessageRepository {
           .collection('conversations')
           .doc(conversationId);
 
-      print("COBA RUN TRANSACTION");
-
       // Use transaction for atomicity
       await _firebaseFirestore.runTransaction((trx) async {
-        print("BERHASILLLL RUN TRANSACTION");
         // Create message document
         final messageRef = conversationRef.collection('messages').doc();
         trx.set(messageRef, message.toModel().toFirestore());
@@ -37,13 +34,9 @@ class MessageRepositoryImpl implements MessageRepository {
           'last_message_at': message.createdAt,
           'updated_at': message.createdAt,
           'unread_count.$receiverId': FieldValue.increment(1),
-          'read_by': FieldValue.arrayUnion([message.senderId]),
         });
 
-        print("BERHASILLLL UPDATE CONVERSATION");
       });
-
-      print("BERHASILLLL SEND MESSAGE");
 
       return Result.success(null);
     } catch (e) {
@@ -67,6 +60,28 @@ class MessageRepositoryImpl implements MessageRepository {
       );
     } catch (e) {
       return Stream.error(e);
+    }
+  }
+
+  @override
+  Future<Result<void>> markMessageAsRead(
+    String conversationId,
+    String readerId,
+  ) async {
+    try {
+      final roomRef = _firebaseFirestore
+          .collection('conversations')
+          .doc(conversationId);
+
+      await _firebaseFirestore.runTransaction((trx) async {
+        trx.update(roomRef, {
+          'unread_count.$readerId': 0,
+        });
+      });
+
+      return Result.success(null);
+    } catch (e) {
+      return Result.error("Failed to mark message as read: ${e.toString()}");
     }
   }
 }

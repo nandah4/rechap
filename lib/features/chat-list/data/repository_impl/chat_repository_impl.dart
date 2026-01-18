@@ -95,7 +95,6 @@ class ChatRepositoryImpl implements ChatRepository {
     if (currentActiveUser == null) {
       return Stream.error("User not logged in");
     }
-
     final docRef = _firebaseFirestore
         .collection('conversations')
         .where('participant_map.$currentActiveUser', isEqualTo: true);

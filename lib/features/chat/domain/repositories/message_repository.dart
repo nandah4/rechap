@@ -12,4 +12,9 @@ abstract class MessageRepository {
 
   /// Get messages stream for real-time updates
   Stream<List<MessageEntity?>> getMessages(String conversationId);
+
+  /// Mark message as read
+
+  Future<Result<void>> markMessageAsRead(String conversationId, String readerId);
+
 }

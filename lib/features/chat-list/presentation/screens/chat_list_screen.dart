@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:rechap/core/themes/app_dimens.dart';
 import 'package:rechap/core/themes/app_palette.dart';
 import 'package:rechap/core/themes/app_typography.dart';
-import 'package:rechap/core/ui/button_primary_shared.dart';
 import 'package:rechap/core/ui/empty_widget.dart';
 import 'package:rechap/core/ui/loading_shared.dart';
 import 'package:rechap/di/auth_di.dart';
+import 'package:rechap/di/chat_di.dart';
 import 'package:rechap/features/chat-list/domain/entities/room_chat_entity.dart';
 import 'package:rechap/features/chat-list/presentation/view_model/chat_list_providers.dart';
 import 'package:rechap/features/chat-list/presentation/view_model/chat_actions_view_model.dart';
-import 'package:rechap/features/profile/presentation/view_models/profile_view_model.dart';
 import 'package:rechap/core/ui/error_shared.dart';
 
 class ChatListScreen extends ConsumerWidget {
@@ -27,14 +25,6 @@ class ChatListScreen extends ConsumerWidget {
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, kToolbarHeight),
         child: AppBar(
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                ref.read(profileViewModelProvider.notifier).signOut();
-              },
-            ),
-          ],
           title: Text(
             "Chats",
             style: Theme.of(context).textTheme.headlineSmall,
@@ -100,9 +90,13 @@ class ChatListScreen extends ConsumerWidget {
           child: ListTile(
             minVerticalPadding: kSpacing16,
             onTap: () {
-              if (chat.id != null) {
-                context.push('/chat-list/chat/${chat.id}');
-              }
+              
+              if (chat.id == null || currentUserId == null) return;
+              context.push('/chat-list/chat/${chat.id}');
+
+              ref
+                  .read(updateMessageUsecaseProvider)
+                  .updateMessage(chat.id!, currentUserId);
             },
             leading: Container(
               height: kSpacing48,

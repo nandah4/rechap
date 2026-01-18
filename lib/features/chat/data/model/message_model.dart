@@ -5,7 +5,6 @@ class MessageModel {
   final String senderId;
   final String text;
   final String type;
-  final List<String> readBy;
   final DateTime createdAt;
 
   const MessageModel({
@@ -13,7 +12,6 @@ class MessageModel {
     required this.senderId,
     required this.text,
     required this.type,
-    required this.readBy,
     required this.createdAt,
   });
 
@@ -23,7 +21,6 @@ class MessageModel {
       senderId: json['sender_id'] as String,
       text: json['text'] as String,
       type: json['type'] as String,
-      readBy: List<String>.from(json['read_by'] ?? []),
       createdAt: (json['created_at'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
@@ -33,7 +30,6 @@ class MessageModel {
       'sender_id': senderId,
       'text': text,
       'type': type,
-      'read_by': readBy,
       'created_at': FieldValue.serverTimestamp(),
     };
   }

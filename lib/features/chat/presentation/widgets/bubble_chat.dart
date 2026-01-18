@@ -39,7 +39,7 @@ class BubbleChat extends StatelessWidget {
             Text(message, style: kMessage(context)),
             const SizedBox(height: kSpacing8),
             Text(
-              "${dateTime.hour}:${dateTime.minute}",
+              "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}",
               style: kTimestamp(context),
             ),
           ],

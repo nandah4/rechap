@@ -5,6 +5,7 @@ class RoomChatModel {
   final List<String> participantsId;
   final Map<String, bool> participantMap;
   final Map<String, String> participantNames;
+
   final Map<String, int> unreadCount;
   final String? lastMessage;
   final DateTime? lastMessageAt;
@@ -31,7 +32,7 @@ class RoomChatModel {
       participantNames: Map<String, String>.from(
         json['participant_names'] ?? {},
       ),
-      unreadCount: Map<String, int>.from(json['unread_count']),
+      unreadCount: Map<String, int>.from(json['unread_count'] ?? {}),
       lastMessage: json['last_message'],
       createdAt: (json['created_at'] as Timestamp?)?.toDate(),
       updatedAt: (json['updated_at'] as Timestamp?)?.toDate(),

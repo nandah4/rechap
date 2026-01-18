@@ -9,6 +9,7 @@ import 'package:rechap/features/chat-list/domain/usecases/delete_chat_usecase.da
 import 'package:rechap/features/chat/data/repository_impl/message_repository_impl.dart';
 import 'package:rechap/features/chat/domain/repositories/message_repository.dart';
 import 'package:rechap/features/chat/domain/usecases/send_message_usecase.dart';
+import 'package:rechap/features/chat/domain/usecases/update_message_usecase.dart';
 
 // Repository
 final roomChatRepository = Provider<ChatRepositoryImpl>(
@@ -45,5 +46,11 @@ final sendMessageUsecaseProvider = Provider<SendMessageUseCase>(
     messageRepository: ref.read(messageRepositoryProvider),
     authRepository: ref.read(authRepositoryProvider),
     chatRepository: ref.read(roomChatRepository),
+  ),
+);
+
+final updateMessageUsecaseProvider = Provider<UpdateMessageUseCase>(
+  (ref) => UpdateMessageUseCase(
+    messageRepository: ref.read(messageRepositoryProvider),
   ),
 );

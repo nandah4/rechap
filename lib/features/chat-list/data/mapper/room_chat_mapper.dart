@@ -24,7 +24,7 @@ extension RoomChatEntityToModel on RoomChatEntity {
       participantsId: participantsId!,
       participantMap: participantMap!,
       participantNames: participantNames ?? {},
-      unreadCount: unreadCount!,
+      unreadCount: unreadCount ?? {},
       lastMessage: lastMessage,
       lastMessageAt: lastMessageAt,
       createdAt: createdAt,

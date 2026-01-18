@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:rechap/core/themes/app_dimens.dart';
 import 'package:rechap/core/themes/app_palette.dart';
 import 'package:rechap/core/themes/app_typography.dart';
+import 'package:rechap/di/chat_di.dart';
 import 'package:rechap/features/contacts/domain/entities/contact_entity.dart';
 import 'package:rechap/features/contacts/presentation/view_models/contact_view_model.dart';
 
